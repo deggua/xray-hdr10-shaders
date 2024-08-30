@@ -1,0 +1,24 @@
+#include "common.h"
+#include "hdr10.h"
+
+// TODO: not as simple as just replacing this file, many things use this shader for rendering. Probably need engine
+// modifications to detect when we should use a UI specific shader
+
+//////////////////////////////////////////////////////////////////////////////////////////
+// Pixel
+float4 main ( p_TL I ) : SV_Target
+{
+	float4 col = s_base.Sample( smp_base, I.Tex0 )*I.Color;
+	
+	if (HDR_RENDERING_PDA != 0.0) {
+		return col;
+	} else {
+		col.rgb = sRGBToHDR10(col.rgb, HDR_UI_NITS_SCALAR);
+		return col;
+	}
+	
+//	float4 res = s_base.Sample( smp_base, I.Tex0 )*I.Color;
+//	clip(res-m_AlphaRef);
+//	clip(res-0.5);
+//	return res;
+}
