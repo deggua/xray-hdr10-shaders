@@ -69,7 +69,7 @@ c2_out main( v2p_aa_AA I )
 
 	img = blend_soft(img, bloom.xyz*bloom.w);
 		
-	if (tnmp_onoff == 1.0)
+	if (!HDR_IS_ENABLED && tnmp_onoff == 1.0)
 	{		
 		img = Uncharted2ToneMapping(img);
 	}

@@ -5,17 +5,17 @@
 
 uniform float4 hdr_parameters;
 
-#define HDR_WHITEPOINT_NITS (hdr_parameters.x)
-#define HDR_UI_NITS_SCALAR  (hdr_parameters.y)
-#define HDR_ENABLED         (hdr_parameters.z)
-#define HDR_RENDERING_PDA   (hdr_parameters.w)
+#define HDR_WHITEPOINT_NITS  (hdr_parameters.x)
+#define HDR_UI_NITS_SCALAR   (hdr_parameters.y)
+#define HDR_IS_ENABLED       (hdr_parameters.z != 0.0)
+#define HDR_IS_RENDERING_PDA (hdr_parameters.w != 0.0)
 
 // from: https://panoskarabelas.com/blog/posts/hdr_in_under_10_minutes/
 // NOTE: this should be applied before any tonemapping/gamma correction/etc
 float3 sRGBToHDR10(float3 color, float scalar)
 {
 	// just don't tonemap if HDR is disabled
-	if (!(HDR_ENABLED != 0.0)) {
+	if (!HDR_IS_ENABLED) {
 		return color;
 	}
 	

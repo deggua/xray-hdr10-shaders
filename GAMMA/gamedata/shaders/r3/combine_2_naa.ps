@@ -155,6 +155,8 @@ c2_out main( v2p_aa_AA I )
 	img = ssfx_lut_pp(img);
 #endif
 
+	// TODO: need some extra info from the game to determine when we're in HDR mode
+	// in which case, need to disable tonemapping and probably other color corrections
 	img = sRGBToHDR10(img, 1.0);
 // ----------------------------------------------
 		

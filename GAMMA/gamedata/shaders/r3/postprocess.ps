@@ -31,7 +31,7 @@ float4 main( p_postpr I ) : SV_Target
 
 //	float4	t_noise	= tex2D		(s_noise,I.tc2);	
 	float4	t_noise	= s_noise.Sample( smp_linear, I.Tex2);	
-	float3 	noised 	= image*t_noise*2;                     		// mul_2x
+	float3 	noised 	= image * t_noise.rgb * 2;                     		// mul_2x
 			image	= lerp( noised, image, I.Color.w); 	// lrp ?
 			image	= (image * sRGBToHDR10(I.Color, 1.0) + c_brightness)*2;		// mad
 //		image	= (image + c_brightness) * I.Color;		// mad ?

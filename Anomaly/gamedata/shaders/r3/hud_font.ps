@@ -13,7 +13,7 @@ float4 main ( p_TL I ) : SV_Target
 {
 	float4 r = s_base.Sample( smp_base, I.Tex0 );
 	
-	if (HDR_RENDERING_PDA != 0.0) {
+	if (HDR_IS_RENDERING_PDA) {
 		r.rgb = I.Color;
 	} else {
 		r.rgb = sRGBToHDR10(I.Color, HDR_UI_NITS_SCALAR);
