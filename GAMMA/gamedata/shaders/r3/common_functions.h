@@ -59,13 +59,17 @@ float3 blend_soft(float3 a, float3 b)
 	
 	//gamma correct and inverse tonemap to add bloom
 	a = SRGBToLinear(a); //post tonemap render
-	a = a / max(0.004, 1-a); //inverse tonemap
+	if (!HDR_IS_ENABLED) {
+		a = a / max(0.004, 1-a); //inverse tonemap
+	}
 	//a = a / max(0.001, 1-a); //inverse tonemap
 	b = SRGBToLinear(b); //bloom
 
 	a += b; //bloom add
 	
-	a = a / (1+a) ; //tonemap
+	if (!HDR_IS_ENABLED) {
+		a = a / (1+a) ; //tonemap
+	}
 	
 	a = LinearTosRGB(a);
 	return a;
