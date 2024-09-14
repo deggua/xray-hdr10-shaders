@@ -28,7 +28,7 @@ void        tonemap (out float4 low, out float4 high, float3 rgb, float scale)
 	rgb =    	rgb*scale;
 	rgb =    	LinearTosRGB(rgb);
 	
-	if (HDR_IS_ENABLED) {
+	if (HDR10_IS_ENABLED) {
 		low = float4(rgb, 0);
 		high = float4(rgb/def_hdr, 0);
 	} else {
@@ -59,17 +59,13 @@ float3 blend_soft(float3 a, float3 b)
 	
 	//gamma correct and inverse tonemap to add bloom
 	a = SRGBToLinear(a); //post tonemap render
-	if (!HDR_IS_ENABLED) {
-		a = a / max(0.004, 1-a); //inverse tonemap
-	}
+	//a = a / max(0.004, 1-a); //inverse tonemap
 	//a = a / max(0.001, 1-a); //inverse tonemap
 	b = SRGBToLinear(b); //bloom
 
 	a += b; //bloom add
 	
-	if (!HDR_IS_ENABLED) {
-		a = a / (1+a) ; //tonemap
-	}
+	//a = a / (1+a) ; //tonemap
 	
 	a = LinearTosRGB(a);
 	return a;
